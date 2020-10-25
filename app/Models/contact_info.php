@@ -11,4 +11,9 @@ class contact_info extends Model
     protected $table = 'contact_infos';
     protected $fillable =['email', 'phone_number', 'mobile_number', 'whatsapp_number',
      'other_number', 'relative'];
+
+
+     public function user(){
+        return $this->belongsTo('App\Models\User');
+    }
 }

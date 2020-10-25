@@ -20,10 +20,10 @@ class CreateJobInfosTable extends Migration
             	->references('id')
                 ->on('users');
             
-            $table->string('job');
-            $table->string('job_place');
-            $table->integer('phone_number');
-            $table->string('education');
+            $table->string('job');//العمل
+            $table->string('job_place');//مكان العمل
+            $table->integer('phone_number');//رقم العمل
+            $table->string('education');//التعليم
 
 
 

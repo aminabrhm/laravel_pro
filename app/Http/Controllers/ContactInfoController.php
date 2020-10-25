@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\contact_info;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ContactInfoController extends Controller
 {
@@ -24,7 +26,8 @@ class ContactInfoController extends Controller
      */
     public function create()
     {
-        //
+        return view('benefits.contact.create');
+
     }
 
     /**
@@ -35,7 +38,9 @@ class ContactInfoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = Auth::user();
+        $user->contact()->create($request->all());
+        return back();
     }
 
     /**
@@ -55,9 +60,12 @@ class ContactInfoController extends Controller
      * @param  \App\Models\contact_info  $contact_info
      * @return \Illuminate\Http\Response
      */
-    public function edit(contact_info $contact_info)
+    public function edit(contact_info $contact_info, $id)
     {
-        //
+        $contact_infos = DB::table('contact_infos')->where('user_id',$id)->first();
+        $contact_info = json_decode( json_encode($contact_infos), true);
+        // dd($personal_info);
+        return view('benefits.contact.edit', compact('contact_info'));
     }
 
     /**
@@ -67,11 +75,20 @@ class ContactInfoController extends Controller
      * @param  \App\Models\contact_info  $contact_info
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, contact_info $contact_info)
+    public function update(Request $request, contact_info $contact_info, $id)
     {
-        //
-    }
+        $contact_info = DB::table('contact_infos')->where('user_id',$id)->update(
+            ['email' => $request->input('email'),
+            'mobile_number' => $request->input('mobile_number'),
+            'phone_number' => $request->input('phone_number'),
+            'whatsapp_number' => $request->input('whatsapp_number'),
+            'other_number' => $request->input('other_number'),
+            'relative' => $request->input('relative'),
+            ]);
+            return back();
 
+    }
+          
     /**
      * Remove the specified resource from storage.
      *

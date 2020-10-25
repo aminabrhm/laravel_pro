@@ -66,11 +66,11 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('الجنسية') }}</label>
 
                             <label class="radio-inline">
-                                <input type="radio" name="account_type"  value="saudi" checked> {{ __('سعودي') }}
+                                <input type="radio" name="user_type"  value="saudi" checked> {{ __('سعودي') }}
                             </label>
 
                             <label class="radio-inline">
-                                <input type="radio" name="account_type" value="non_saudi"> {{ __('غير سعودي') }}
+                                <input type="radio" name="user_type" value="non_saudi"> {{ __('غير سعودي') }}
                             </label>
                         </div>
 

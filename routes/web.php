@@ -20,3 +20,11 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//personal information
+Route::resource('personalInfo', 'App\Http\Controllers\personalController')->name('*', 'personalInfo')->middleware('auth');
+Route::resource('jobInfo', 'App\Http\Controllers\JobInfoController')->name('*', 'jobInfo')->middleware('auth');
+
+
+
+Route::resource('contactInfo', 'App\Http\Controllers\ContactInfoController')->name('*', 'contactInfo')->middleware('auth');

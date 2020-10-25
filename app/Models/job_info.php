@@ -10,4 +10,10 @@ class job_info extends Model
     use HasFactory;
     protected $table = 'job_infos';
     protected $fillable =['job', 'job_place', 'phone_number', 'education'];
+
+
+
+    public function user(){
+        return $this->hasMany('App\Models\User');
+    }
 }

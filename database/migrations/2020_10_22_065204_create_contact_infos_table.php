@@ -24,7 +24,7 @@ class CreateContactInfosTable extends Migration
             $table->integer('mobile_number');
             $table->integer('whatsapp_number');
             $table->integer('other_number');
-            $table->integer('relative');
+            $table->string('relative');
             $table->timestamps();
         });
     }

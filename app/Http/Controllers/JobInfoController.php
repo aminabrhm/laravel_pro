@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\job_info;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 
 class JobInfoController extends Controller
 {
@@ -24,7 +27,7 @@ class JobInfoController extends Controller
      */
     public function create()
     {
-        //
+        return view('benefits.job.create');
     }
 
     /**
@@ -35,7 +38,10 @@ class JobInfoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        $user = Auth::user();
+        $user->job_info()->create($request->all());
+        return back();
     }
 
     /**
@@ -55,9 +61,12 @@ class JobInfoController extends Controller
      * @param  \App\Models\job_info  $job_info
      * @return \Illuminate\Http\Response
      */
-    public function edit(job_info $job_info)
+    public function edit(job_info $job_info, $id)
     {
-        //
+        $job_infos = DB::table('job_infos')->where('user_id',$id)->first();
+        $job_info = json_decode( json_encode($job_infos), true);
+        return view('benefits.job.edit', compact('job_info'));
+
     }
 
     /**
@@ -67,9 +76,15 @@ class JobInfoController extends Controller
      * @param  \App\Models\job_info  $job_info
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, job_info $job_info)
+    public function update(Request $request, job_info $job_info, $id)
     {
-        //
+        $job_info = DB::table('job_infos')->where('user_id',$id)->update(
+            ['job' => $request->input('job'),
+            'job_place' => $request->input('job_place'),
+            'phone_number' => $request->input('phone_number'),
+            'education' => $request->input('education'),
+            ]);
+            return back();
     }
 
     /**
